@@ -113,7 +113,7 @@
             function isEven($n)
             {
                 if ($n & 2) {
-                    echo 'parzysta';
+                    echo 'True';
                 } else {
                     echo 'nieparzysta';
                 }
@@ -151,9 +151,7 @@
         <div class="divv">
             <h2>1. Ustawiono ciasteczka imienia </h2>
             <?php
-
-            $siedemdni = 86400 * 7;
-            setcookie("username", "Jan", $siedemdni, "/");
+            setcookie("username", "Jan", time() + (86400 * 7), "/");
             ?>
 
         </div>
@@ -174,14 +172,40 @@
         <div class="divv">
             <?php
 
-            setcookie("background_color", "black", $siedemdni, "/");
+            setcookie("background_theme", "black", time() + (86400 * 30), "/");
+            echo "<h2>3. Ustawiono ciasteczka koloru</h2>" . $_COOKIE["background_theme"];
             ?>
-            <h2>3. Ustawiono ciasteczka koloru</h2>
 
         </div>
-    </div>
+        <div class="divv">
+            <?php
+            setcookie("session_id", "2", time() + 3600, "/");
+            setcookie("session_id", "", time() - 3600, "/");
+            if (isset($_COOKIE["session_id"])) {
+                echo "id_sesji " . $_COOKIE["session_id"];
+            } else {
+                echo "<h2>4. ciasteczka sesji zostały usunięte</h2>";
+            }
+            ?>
 
+        </div>
+        <div class="divv">
+            <?php
+            echo "<h2>5. ciastka na stronie </h2>";
+            echo var_dump($_COOKIE);
+            ?>
 
+        </div>
+        <h1>4. Zadania Sesje</h1>
+        <div class="divv">
+            <?php
+            session_start();
+            $_SESSION["ID"] = "1";
+            $_SESSION["imie"] = "Marcin";
+            $_SESSION["email"] = "marcin.w@gmail.com";
+            ?>
+
+        </div>
     </div>
 </body>
 
