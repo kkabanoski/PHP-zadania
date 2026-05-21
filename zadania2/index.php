@@ -83,6 +83,7 @@
             </h2>
         </div>
         <h1>2. Zadania Funkcje</h1>
+        <br>
         <div class="divv">
 
             <?php
@@ -200,13 +201,108 @@
         <div class="divv">
             <?php
             session_start();
+            // 1.utworzenie sesji
             $_SESSION["ID"] = "1";
             $_SESSION["imie"] = "Marcin";
             $_SESSION["email"] = "marcin.w@gmail.com";
-            ?>
+            
+            // 2. sprawdza czy sesja jest ustawiona i jeśli tak to wyświetla dane użytkownika z sesji
+            if (isset($_SESSION)) {
+                echo "Zalogowany jako: " . $_SESSION["ID"] . ", ". $_SESSION["imie"] . ", ". $_SESSION["email"];
+            }
+            
+            //3. usunięcie zmiennej sesji
+            unset($_SESSION["imie"]);
+
+            // 4. wylogowanie użytkownika poprzez znisczenie sesji
+         session_destroy();
+
+         ?>
+</div>  
+            <div class="divv">
+            <?php
+                //5. preferowany język użytkownika w sesji
+                $_SESSION["preferowany_jezyk"] = "Polski";
+                if (isset($_SESSION["preferowany_jezyk"])) {
+                    echo "Preferowany język: " . $_SESSION["preferowany_jezyk"];
+                }
+                ?>
+            </div>
+            <br>
+            <h1>5. Zadania Wyjątki</h1>
+            <br>
+            <div class="divv">
+                <h1>1.</h1>
+                <?php
+        try {
+            $result = 10 / 0; 
+        } catch (DivisionByZeroError $e) {
+            echo "Błąd: " . $e->getMessage();
+        }
+        ?>
+
+</div>
+        <div class="divv">
+        <h1>2.</h1>    
+        <?php
+        $email = "kabanoski@kabanoski.com";
+        try {
+            
+           $sprawdz = str_contains($email, "@");
+            if (!$sprawdz) {
+                throw new ErrorException("Email nie posiada @");
+            } else {
+                echo "Email zawiera znak @";
+            }
+        } catch (Exception $xd) {
+            echo "Złapano wyjątek: " . $xd->getMessage();
+        }
+
+        ?>
+        </div>
+        <div class="divv">
+        <h1>3. i 5.</h1>    
+        <?php
+        class EmailException extends Exception
+        {
+        }
+        
+        try {
+
+            $file = @fopen("plik.txt", "r");
+            
+            if (!$file) {
+                throw new EmailException("plik.txt nie istnieje");
+            } else {
+                echo "plik istnieje";
+            }
+        } catch (Exception $xd) {
+            echo "Złapano wyjątek: " . $xd->getMessage();
+        }
+        
+        ?>
+        </div>
+        <div class="divv">
+        <h1>4.</h1>    
+        <?php
+    $age = -1;
+    try {
+        if ($age < 0) {
+            throw new Exception("Wiek nie może być ujemny!");
+     }
+        echo "Wiek: $age";
+    } catch (Exception $e) {
+        echo "Złapano wyjątek: " . $e->getMessage();
+    } finally {
+        echo " Koniec sprawdzania wieku";
+    }
+        
+        ?>
+        </div>
+        <div class="divv">
 
         </div>
-    </div>
+</div>
 </body>
 
 </html>
