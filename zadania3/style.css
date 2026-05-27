@@ -1,0 +1,19 @@
+body {
+    display:  block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 600px;
+}
+table {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin:  10px 0px;
+}
+
+form {
+    display:  flex;
+    flex-direction: column;
+    align-items:  center;
+
+}
